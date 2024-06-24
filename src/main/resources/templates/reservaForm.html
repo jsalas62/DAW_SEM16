@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reservar Campo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Reservar Campo</h1>
+    <form th:action="@{/reserva/nueva}" th:object="${reserva}" method="post">
+        <div class="form-group">
+            <label for="campo">Campo:</label>
+            <select id="campo" th:field="*{campo.id}" class="form-control" required>
+                <option value="" disabled selected>Seleccione un campo</option>
+                <option th:each="campo : ${campos}" th:value="${campo.id}" th:text="${campo.nombre}"></option>
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="horario">Horario:</label>
+            <select id="horario" th:field="*{horario.id}" class="form-control" required>
+                <option value="" disabled selected>Seleccione un horario</option>
+                <option th:each="horario : ${horarios}" th:value="${horario.id}" th:text="${horario.horaInicio} + ' - ' + ${horario.horaFin}"></option>
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" th:field="*{fecha}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="comentario">Comentario:</label>
+            <textarea id="comentario" th:field="*{comentario}" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Reservar</button>
+        </div>
+        <div th:if="${error}" class="alert alert-danger" role="alert">
+            <p th:text="${error}"></p>
+        </div>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mis Reservas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Mis Reservas</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Campo</th>
+            <th>Horario</th>
+            <th>Fecha</th>
+            <th>Comentario</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reserva : ${reservas}">
+            <td th:text="${reserva.campo.nombre}"></td>
+            <td th:text="${reserva.horario.horaInicio} + ' - ' + ${reserva.horario.horaFin}"></td>
+            <td th:text="${reserva.fecha}"></td>
+            <td th:text="${reserva.comentario}"></td>
+            <td th:text="${reserva.estado.nombre}"></td>
+            <td>
+                <form th:action="@{/user/reserva/{id}/eliminar(id=${reserva.id})}" method="post">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

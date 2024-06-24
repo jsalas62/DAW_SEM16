@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">User Profile</h1>
+    <form th:action="@{/user/profile}" th:object="${usuario}" method="post" class="mt-4">
+        <div class="form-group">
+            <label for="nombres">Name:</label>
+            <input type="text" id="nombres" th:field="*{nombres}" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label for="codigoTecsup">Tecsup Code:</label>
+            <input type="text" id="codigoTecsup" th:field="*{codigoTecsup}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="carrera">Carrera:</label>
+            <select id="carrera" th:field="*{carrera.id}" class="form-control">
+                <option value="">Select a Career</option>
+                <option th:each="carrera : ${carreras}" th:value="${carrera.id}" th:text="${carrera.nombre}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+    <div th:if="${param.success}" class="alert alert-success mt-4">
+        <p>Profile updated successfully!</p>
+    </div>
+</div>
+</body>
+</html>
